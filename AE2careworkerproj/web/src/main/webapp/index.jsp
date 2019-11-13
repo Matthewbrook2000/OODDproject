@@ -31,7 +31,8 @@ and open the template in the editor.
         <table>
             <tr><td></td><td><a href="../projectfacadeweb/rest/appointmentService/">http://localhost:8084/projectfacadeweb/rest/appointmentService/</a> </td></tr>
             <tr><td></td><td><a href="../projectfacadeweb/rest/appointmentService/getHeartbeat">http://localhost:8084/projectfacadeweb/rest/appointmentService/getHeartbeat</a> </td></tr>
-         </table>
+            <tr><td></td><td><a href="../projectfacadeweb/rest/appointmentService/arrived">http://localhost:8084/projectfacadeweb/rest/appointmentService/arrivedt</a> </td></tr>
+        </table>
 
 
     </body>

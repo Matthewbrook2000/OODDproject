@@ -10,8 +10,9 @@ and open the template in the editor.
 <%
 response.setIntHeader("Refresh", 20);
 String actionString = request.getParameter("action");
+String carerName = request.getParameter("CarerName");
 
-
+//ServiceFacade serviceFacade = (serviceFacade) WebObjectFactory.getServiceFacade();
 %>
 
 <html>
@@ -23,16 +24,15 @@ String actionString = request.getParameter("action");
     <body>
          <p>The time is: <%= new Date().toString() %> (note page is auto refreshed every 20 seconds)</p>
         <h1>Example Client JSP Pages</h1>
-
+        
         <h2>Your details</h2>
 
         <!-- post avoids url encoded parameters -->
-        <form method="post">
-            <input type="text" name="CarerName">
-        </form> 
+     
         
         <h2>Buttons</h2>
         <form>
+            <input type="text" name="CarerName">
             <button type="submit" name="action" value="arrived">Arrived</button>
             <button type="submit" name="action" value="extTime">Extend time</button>
             <button type="submit" name="action" value="leaving">Leaving</button>

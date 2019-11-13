@@ -56,5 +56,11 @@ public class ServiceRestClientImpl implements ServiceFacade {
 
     }
 
+    @Override
+    public boolean arrived(String name, String location) {
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
+    }
+
 
 }

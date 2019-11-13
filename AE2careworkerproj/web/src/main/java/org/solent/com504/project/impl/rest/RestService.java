@@ -24,7 +24,6 @@ import org.solent.com504.project.impl.web.WebObjectFactory;
 import org.solent.com504.project.model.dto.ReplyMessage;
 import org.solent.com504.project.model.service.ServiceFacade;
 
-
 /**
  * To make the ReST interface easier to program. All of the replies are
  * contained in ReplyMessage classes but only the fields indicated are populated
@@ -63,7 +62,7 @@ public class RestService {
     @GET
     @Path("/getHeartbeat")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getAllAnimals() {
+    public Response getHeartbeat() {
         try {
 
             ServiceFacade serviceFacade = WebObjectFactory.getServiceFacade();
@@ -72,11 +71,11 @@ public class RestService {
 
             String heartbeat = serviceFacade.getHeartbeat();
             replyMessage.setDebugMessage(heartbeat);
-            
+
             replyMessage.setCode(Response.Status.OK.getStatusCode());
-            
+
             return Response.status(Response.Status.OK).entity(replyMessage).build();
-            
+
         } catch (Exception ex) {
             LOG.error("error calling /getHeartbeat ", ex);
             ReplyMessage replyMessage = new ReplyMessage();
@@ -86,6 +85,33 @@ public class RestService {
         }
     }
 
- 
+    @GET
+    @Path("/arrived")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response arrived(@QueryParam("name") String name, @QueryParam("location") String location) {
+        try {
+
+            ServiceFacade serviceFacade = WebObjectFactory.getServiceFacade();
+            ReplyMessage replyMessage = new ReplyMessage();
+            LOG.debug("/getHeartbeat called");
+
+            boolean ok = serviceFacade.arrived(name, location);
+            if (ok) {
+                replyMessage.setCode(Response.Status.OK.getStatusCode());
+            } else {
+                replyMessage.setDebugMessage("problem with arrived name" + name);
+                replyMessage.setCode(Response.Status.BAD_REQUEST.getStatusCode());
+            }
+
+            return Response.status(Response.Status.OK).entity(replyMessage).build();
+
+        } catch (Exception ex) {
+            LOG.error("error calling /getHeartbeat ", ex);
+            ReplyMessage replyMessage = new ReplyMessage();
+            replyMessage.setCode(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+            replyMessage.setDebugMessage("error calling /getHeartbea " + ex.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(replyMessage).build();
+        }
+    }
 
 }

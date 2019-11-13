@@ -4,4 +4,7 @@ public interface ServiceFacade {
     
     public String getHeartbeat();
     
+    boolean arrived(String name, String location);
+    
+    
 }
