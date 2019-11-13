@@ -11,12 +11,18 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h1>Appointment Service JSP Pages</h1>
-        <div>
-            <img src="../projectfacadeweb/images/Village-Farm.svg" alt="Village Farm Creative Commons https://publicdomainvectors.org" style="width:200px;height:300px;">
-        </div>
-
-        <h2>Simple Farm Example</h2>
+        <h1>Call center</h1>
+        
+        <h2>Add, delete, update</h2> <!--link to new jsp pages-->
+        <h2>Workers</h2>
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+            </tr>
+        </table>
+        
+        <h2>Test Heartbeat</h2>
         <!-- http://localhost:8084/projectfacadeweb/testHeartbeat.jsp -->
         <p> click on <a href="../projectfacadeweb/testHeartbeat.jsp">testHeartbeat.jsp</a> to open application
         </p>
