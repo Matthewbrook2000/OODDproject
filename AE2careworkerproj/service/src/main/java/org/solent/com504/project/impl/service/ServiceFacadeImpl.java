@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.solent.com504.project.model.dao.AppointmentDAO;
 import org.solent.com504.project.model.dao.PersonDAO;
+import org.solent.com504.project.model.dto.Appointment;
 import org.solent.com504.project.model.service.ServiceFacade;
 
 public class ServiceFacadeImpl implements ServiceFacade {
@@ -37,9 +38,18 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
-    public boolean arrived(String name, String location) {
-        LOG.debug("arrived called name= "+location + "location="+name);
-        return false;   //call personDAO to change the state of the person for when the call center updates the list
+    public Appointment arrived(String name, String location) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("name cannot be null or empty ");
+        }
+        if (location == null || name.isEmpty()) {
+            throw new IllegalArgumentException("location cannot be null");
+        }
+
+        Appointment appointment = AppointmentDAO
+        
+        AppointmentDAO
+        return animal;
     }
     
 }

@@ -1,10 +1,12 @@
 package org.solent.com504.project.model.service;
 
+import org.solent.com504.project.model.dto.Appointment;
+
 public interface ServiceFacade {
     
     public String getHeartbeat();
     
-    boolean arrived(String name, String location);
+    public Appointment arrived(String name, String location);
     
     
 }

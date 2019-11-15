@@ -20,6 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.filter.LoggingFilter;
+import org.solent.com504.project.model.dto.Appointment;
 import org.solent.com504.project.model.dto.ReplyMessage;
 import org.solent.com504.project.model.service.ServiceFacade;
 
@@ -57,9 +58,23 @@ public class ServiceRestClientImpl implements ServiceFacade {
     }
 
     @Override
-    public boolean arrived(String name, String location) {
+    public Appointment arrived(String name, String location) {
+        LOG.debug("arrived called name=" + name + " location=" + location);
+
+        Client client = ClientBuilder.newClient(new ClientConfig().register(LoggingFilter.class));
+        WebTarget webTarget = client.target(baseUrl).path("arrived");
+
+        MultivaluedMap<String, String> formData = new MultivaluedHashMap<String, String>();
+        formData.add("name", name);
+        formData.add("location", location);
+
+        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.post(Entity.form(formData));
+
+        ReplyMessage replyMessage = response.readEntity(ReplyMessage.class);
+        LOG.debug("Response status=" + response.getStatus() + " ReplyMessage: " + replyMessage);
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
+        return true;
     }
 
 

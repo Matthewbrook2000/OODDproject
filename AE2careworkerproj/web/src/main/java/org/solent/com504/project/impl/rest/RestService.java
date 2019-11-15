@@ -93,13 +93,13 @@ public class RestService {
 
             ServiceFacade serviceFacade = WebObjectFactory.getServiceFacade();
             ReplyMessage replyMessage = new ReplyMessage();
-            LOG.debug("/getHeartbeat called");
+            LOG.debug("/arrived called");
 
             boolean ok = serviceFacade.arrived(name, location);
             if (ok) {
                 replyMessage.setCode(Response.Status.OK.getStatusCode());
             } else {
-                replyMessage.setDebugMessage("problem with arrived name" + name);
+                replyMessage.setDebugMessage("problem with arrived name " + name);
                 replyMessage.setCode(Response.Status.BAD_REQUEST.getStatusCode());
             }
 
