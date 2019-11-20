@@ -73,8 +73,11 @@ public class ServiceRestClientImpl implements ServiceFacade {
 
         ReplyMessage replyMessage = response.readEntity(ReplyMessage.class);
         LOG.debug("Response status=" + response.getStatus() + " ReplyMessage: " + replyMessage);
-        
-        return true;
+    
+        if (!replyMessage.getAppointmentList().isEmpty()) {
+            return replyMessage.getAppointmentList().get(0);
+        }
+        return null;
     }
 
 

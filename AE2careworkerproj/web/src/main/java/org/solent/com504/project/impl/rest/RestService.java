@@ -21,6 +21,7 @@ import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.solent.com504.project.impl.web.WebObjectFactory;
+import org.solent.com504.project.model.dto.Appointment;
 import org.solent.com504.project.model.dto.ReplyMessage;
 import org.solent.com504.project.model.service.ServiceFacade;
 
@@ -85,31 +86,28 @@ public class RestService {
         }
     }
 
-    @GET
+    @POST
     @Path("/arrived")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response arrived(@QueryParam("name") String name, @QueryParam("location") String location) {
         try {
+            LOG.debug("/arrived called name= " + name + "location= " + location);
 
             ServiceFacade serviceFacade = WebObjectFactory.getServiceFacade();
             ReplyMessage replyMessage = new ReplyMessage();
-            LOG.debug("/arrived called");
 
-            boolean ok = serviceFacade.arrived(name, location);
-            if (ok) {
-                replyMessage.setCode(Response.Status.OK.getStatusCode());
-            } else {
-                replyMessage.setDebugMessage("problem with arrived name " + name);
-                replyMessage.setCode(Response.Status.BAD_REQUEST.getStatusCode());
-            }
+            Appointment newappointment = serviceFacade.arrived(name, location);
+            replyMessage.getAppointmentList().add(newappointment);
+            
+            replyMessage.setCode(Response.Status.OK.getStatusCode());
 
             return Response.status(Response.Status.OK).entity(replyMessage).build();
 
         } catch (Exception ex) {
-            LOG.error("error calling /getHeartbeat ", ex);
+            LOG.error("error calling /arrived ", ex);
             ReplyMessage replyMessage = new ReplyMessage();
             replyMessage.setCode(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
-            replyMessage.setDebugMessage("error calling /getHeartbea " + ex.getMessage());
+            replyMessage.setDebugMessage("error calling /arrived " + ex.getMessage());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(replyMessage).build();
         }
     }

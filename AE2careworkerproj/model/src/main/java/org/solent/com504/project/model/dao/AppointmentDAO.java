@@ -5,8 +5,6 @@ import org.solent.com504.project.model.dto.Appointment;
 import org.solent.com504.project.model.dto.Person;
 
 public interface AppointmentDAO {
-    
-    public Appointment create(String name, String location);
 
     public Appointment findById(Long id);
 

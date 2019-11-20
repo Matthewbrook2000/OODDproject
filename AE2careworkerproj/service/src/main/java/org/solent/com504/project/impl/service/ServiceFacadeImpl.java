@@ -36,20 +36,18 @@ public class ServiceFacadeImpl implements ServiceFacade {
     public String getHeartbeat() {
         return "heartbeat number "+heartbeatRequests.getAndIncrement()+ " "+ new Date().toString();
     }
-
     @Override
     public Appointment arrived(String name, String location) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("name cannot be null or empty ");
         }
-        if (location == null || name.isEmpty()) {
+        if (location == null || location.isEmpty()) {
             throw new IllegalArgumentException("location cannot be null");
         }
-
-        Appointment appointment = AppointmentDAO
-        
-        AppointmentDAO
-        return animal;
+        Appointment appointment = new Appointment(); 
+        Appointment appointment = appointmentDao.save(appointment);
+        appointmentDao.save(appointment);
+        return appointment;
     }
     
 }

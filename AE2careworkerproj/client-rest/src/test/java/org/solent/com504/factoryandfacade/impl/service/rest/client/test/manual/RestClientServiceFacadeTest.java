@@ -13,6 +13,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.solent.com504.factoryandfacade.impl.service.rest.client.ClientObjectFactoryImpl;
+import org.solent.com504.project.model.dto.Appointment;
 import org.solent.com504.project.model.service.ServiceFacade;
 import org.solent.com504.project.model.service.ServiceObjectFactory;
 
@@ -45,6 +46,18 @@ public class RestClientServiceFacadeTest {
         LOG.debug("heartbeat received :" + heartbeat);
 
         LOG.debug("end of testGetHeartbeat()");
+    }
+    
+    @Test 
+    public void testArrived(){
+        LOG.debug("testArrived()");
+        String name = "name";
+        String location = "location";
+        Appointment appointment = serviceFacade.arrived(name, location);
+        assertNotNull(appointment);
+        String msg = "returned :" + appointment;
+        LOG.debug(msg);
+        LOG.debug("end of testAddAnimal()");
     }
 
 }

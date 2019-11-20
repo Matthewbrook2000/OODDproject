@@ -14,16 +14,19 @@ and open the template in the editor.
 <%
 response.setIntHeader("Refresh", 20);
 String actionString = request.getParameter("action");
-String carerName = request.getParameter("CarerName");
-String carerLocation = request.getParameter("CarerLocation");
+String name = request.getParameter("CarerName");
+String location = request.getParameter("CarerLocation");
 
 ServiceFacade serviceFacade = (ServiceFacade) WebClientObjectFactory.getServiceFacade();
 
-if (carerName != null && carerLocation != null && actionString != "arrived") {
-            serviceFacade.arrived(carerName, carerLocation);
+if (name != null && location != null && actionString != "arrived") {
+            serviceFacade.arrived(name, location);
     }
     /** TO-DO   
-     Arrived now creates a new appointment
+     * add ability to create users to call center, this will be on a seperate jsp with a list of persons, each will either be a carer or caree, and then a button to add 
+     * 
+     * 
+     Arrived changes person location
      * need to get this working on ServiceFacadeInpl, ServiceRestClientImpl and RestService
      
      Get Extend time button to modify appointment
