@@ -9,6 +9,14 @@ and open the template in the editor.
 
     
     /**
+     * complete DAO's
+     * comlete DTO's
+     * implement all of service facade impls, rest stuff last
+     * get the call center appointmenst page working
+     * get rest stuff working for carer side
+     * make pretty
+     * 
+     * 
      * implement:
      * manual add, extend time and leaving
      * 
@@ -23,7 +31,10 @@ and open the template in the editor.
     <body>
         <h1>Call center</h1>
         
-        <h2>Add, delete, update</h2> <!--link to new jsp pages-->
+        <!--link to new jsp pages-->
+        <h2>Appointment</h2>
+        <p> <a href="../projectfacadeweb/appointments.jsp">Appointment page</a>
+        
         <h2>Workers</h2>
         <table border="1">
             <tr>

@@ -38,16 +38,19 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
     @Override
     public Appointment arrived(String name, String location) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("name cannot be null or empty ");
-        }
-        if (location == null || location.isEmpty()) {
-            throw new IllegalArgumentException("location cannot be null");
-        }
-        Appointment appointment = new Appointment(); 
-        Appointment appointment = appointmentDao.save(appointment);
-        appointmentDao.save(appointment);
-        return appointment;
-    }
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     
+    //rest works, sends error end to end but the logic behind adding a new appointment doesnt work.
+//        if (name == null || name.isEmpty()) {
+//            throw new IllegalArgumentException("name cannot be null or empty ");
+//        }
+//        if (location == null || location.isEmpty()) {
+//            throw new IllegalArgumentException("location cannot be null");
+//        }
+//        Appointment appointment = new Appointment(); 
+//        Appointment appointment = appointmentDao.save(appointment);
+//        appointmentDao.save(appointment);
+//        return appointment;
+    }
+
 }
