@@ -47,7 +47,7 @@ public class PersonDAOJpaImpl implements PersonDAO {
     @Override
     public void deleteById(long id) {
         entityManager.getTransaction().begin();
-        Query q = entityManager.createQuery("DELETE FROM Animal a WHERE a.id=:id");
+        Query q = entityManager.createQuery("DELETE FROM Person p WHERE p.id=:id");
         q.setParameter("id", id);
         q.executeUpdate();
         entityManager.getTransaction().commit();
@@ -56,7 +56,7 @@ public class PersonDAOJpaImpl implements PersonDAO {
     @Override
     public Person delete(Person person) {
         entityManager.getTransaction().begin();
-        entityManager.createQuery("DELETE FROM Person p WHERE p=person").setParameter("person", person).executeUpdate();  //possible error
+        entityManager.createQuery("DELETE FROM Person p WHERE p=:person").setParameter("person", person).executeUpdate();  
         entityManager.getTransaction().commit();
         return person;
     }
@@ -70,43 +70,16 @@ public class PersonDAOJpaImpl implements PersonDAO {
 
     @Override
     public List<Person> findByRole(Role role) {
-//        Map<String, String> paramMap = new HashMap<String, String>();
-//   
-//        String queryString = "select a from Animal a WHERE TRUE=TRUE  "; // WHERE TRUE=TRUE masn WHERE always has a predicate ";
-//        if (animalTemplate.getName() != null) {
-//            queryString = queryString + "AND a.name LIKE :name "; //':name' ";
-//            paramMap.put("name", animalTemplate.getName());
-//        }
-//        if (animalTemplate.getAddress() != null) {
-//            queryString = queryString + "AND a.address LIKE :address ";
-//            paramMap.put("address", animalTemplate.getAddress());
-//        }
-//        if (animalTemplate.getAnimalType()!=null && animalTemplate.getAnimalType().getType() != null) {
-//            queryString = queryString + "AND a.animalType.type LIKE :type ";
-//            paramMap.put("type", animalTemplate.getAnimalType().getType());
-//        }
-//        
-//        // prevents running this section if not printing debug log
-//        if (LOG.isDebugEnabled()) {
-//            LOG.debug("queryString string built: " + queryString + "using parameters: ");
-//            for (String key : paramMap.keySet()) {
-//                LOG.debug("key: "+key + " value:"+paramMap.get(key));
-//            }
-//        }
-//
-//        TypedQuery<Animal> query = entityManager.createQuery(queryString, Animal.class);
-//        for (String key : paramMap.keySet()) {
-//            query.setParameter(key, paramMap.get(key));
-//        }
-//
-//        List<Animal> animalList = query.getResultList();
-//        return animalList;
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Person> q = entityManager.createQuery("SELECT p FROM Person p WHERE p.role=:role", Person.class).setParameter("role", role);
+        List<Person> personList = q.getResultList();
+        return personList;
     }
 
     @Override
     public List<Person> findByName(String firstName, String secondName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Person> q = entityManager.createQuery("SELECT p FROM Person p WHERE p.firstName=:firstName AND p.secondName=:secondName", Person.class).setParameter("firstName", firstName).setParameter("secondName", secondName);
+        List<Person> personList = q.getResultList();
+        return personList;
     }
 
 }

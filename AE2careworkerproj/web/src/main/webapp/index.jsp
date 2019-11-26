@@ -9,7 +9,7 @@ and open the template in the editor.
 
     
     /**
-     * complete DAO's
+     * DAO testing
      * comlete DTO's
      * implement all of service facade impls, rest stuff last
      * get the call center appointmenst page working
