@@ -9,9 +9,9 @@ and open the template in the editor.
 
     
     /**
-     * DAO testing
-     * comlete DTO's
-     * implement all of service facade impls, rest stuff last
+     * Flush out service facade
+     * Flush out Service facade rest
+     * Flush out Rest service
      * get the call center appointmenst page working
      * get rest stuff working for carer side
      * make pretty
