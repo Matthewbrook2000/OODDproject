@@ -52,23 +52,49 @@ public class PersonDAOTest {
     @Test
     public void createPersonDAOTest() {
         LOG.debug("start of createPersonDAOTest");
-        // this test simply runs the before method
+        personDao = daoFactory.getPersonDAO();
+        assertNotNull(personDao);
         LOG.debug("end of createPersonDAOTest");
     }
 
     @Test
     public void findByIdTest() {
         LOG.debug("start of findByIdTest()");
-        //TODO implement test
-        LOG.debug("NOT IMPLEMENTED");
+        assertNotNull(personDao);
+        init();
+
+        Person p = new Person();
+        p.setAddress("123 street road");
+        p.setFirstName("John");
+        p.setSecondName("Doe");
+        p.setRole(Role.PATIENT);
+        personDao.save(p);
+        assertNotNull(p);
+
+        Long foundId = p.getId();
+        Person foundPerson = personDao.findById(foundId);
+        assertEquals("John", foundPerson.getFirstName());
+
         LOG.debug("end of findByIdTest()");
     }
 
     @Test
     public void saveTest() {
         LOG.debug("start of saveTest()");
-        //TODO implement test
-        LOG.debug("NOT IMPLEMENTED");
+        assertNotNull(personDao);
+        personDao.deleteAll();
+
+        Person p = new Person();
+        p.setAddress("123 street road");
+        p.setFirstName("John");
+        p.setSecondName("Doe");
+        p.setRole(Role.PATIENT);
+        personDao.save(p);
+        assertNotNull(p);
+
+        Long foundId = p.getId();
+        Person foundPerson = personDao.findById(foundId);
+        assertEquals("John", foundPerson.getFirstName());
         LOG.debug("end of saveTest()");
     }
 
@@ -80,57 +106,112 @@ public class PersonDAOTest {
         List<Person> personList = personDao.findAll();
         assertNotNull(personList);
         
-        // init should insert 5 people
         assertEquals(5, personList.size());
 
-        // print out result
         String msg = "";
         for (Person person : personList) {
             msg = msg +"\n   " +  person.toString();
         }
         LOG.debug("findAllTest() retrieved:" + msg);
-
-        LOG.debug("NOT IMPLEMENTED");
+        
+        List<Person> retrievedPersons = personDao.findAll();
+        LOG.debug(retrievedPersons.size() + " People found");
+        assertEquals(5, retrievedPersons.size());
         LOG.debug("end of findAllTest()");
     }
 
     @Test
     public void deleteByIdTest() {
         LOG.debug("start of deleteByIdTest()");
-        //TODO implement test
-        LOG.debug("NOT IMPLEMENTED");
+        assertNotNull(personDao);
+        init(); 
+        Person p = new Person();
+        p.setAddress("123 street road");
+        p.setFirstName("John");
+        p.setSecondName("Doe");
+        p.setRole(Role.PATIENT);
+        personDao.save(p);
+        assertNotNull(p);
+
+        Long foundId = p.getId();
+        Person foundPerson = personDao.findById(foundId);
+        assertEquals("John", foundPerson.getFirstName());
+        personDao.deleteById(foundId);
+        assertNull(personDao.findById(foundId));
+
         LOG.debug("end of deleteByIdTest()");
     }
 
     @Test
     public void deleteTest() {
         LOG.debug("start of deleteTest()");
-        //TODO implement test
-        LOG.debug("NOT IMPLEMENTED");
+        assertNotNull(personDao);
+        init(); 
+        
+        Person p = new Person();
+        p.setAddress("123 street road");
+        p.setFirstName("John");
+        p.setSecondName("Doe");
+        p.setRole(Role.PATIENT);
+        personDao.save(p);
+        assertNotNull(p);
+        
+        Long foundId = p.getId();
+        personDao.delete(p);
+        assertNull(personDao.findById(foundId));
+
         LOG.debug("end ofdeleteTest()");
     }
 
     @Test
     public void deleteAllTest() {
         LOG.debug("start of deleteAllTest())");
-        //TODO implement test
-        LOG.debug("NOT IMPLEMENTED");
+        assertNotNull(personDao);
+        init(); 
+        
+        List<Person> personsRetrieved = personDao.findAll();
+        
+        personDao.deleteAll();
+        LOG.debug(personsRetrieved.size() + " personsRetrieved:");
+        for (Person p : personsRetrieved) {
+            LOG.debug("\n   " + p);
+        }
+        
         LOG.debug("end of deleteAllTest()");
     }
 
     @Test
     public void findByRoleTest() {
         LOG.debug("start of findByIdTest()");
-        //TODO implement test
-        LOG.debug("NOT IMPLEMENTED");
+        assertNotNull(personDao);
+        init(); 
+       
+        List<Person> peopleFound = personDao.findByRole(Role.PATIENT);
+        for (Person p : peopleFound) {
+            LOG.debug("\n  " + p);
+        }
         LOG.debug("end of findByIdTest()");
     }
 
     @Test
     public void findByNameTest() {
         LOG.debug("start of findByNameTest()");
-        //TODO implement test
-        LOG.debug("NOT IMPLEMENTED");
+        assertNotNull(personDao);
+        init(); 
+        
+        Person p = new Person();
+        p.setAddress("123 street road");
+        p.setFirstName("John");
+        p.setSecondName("Doe");
+        p.setRole(Role.PATIENT);
+        personDao.save(p);
+        assertNotNull(p);
+        
+        List<Person> person = personDao.findByName("John", "Doe");
+        assertNotNull(person);
+        for (Person per : person) {
+            assertEquals("John", per.getFirstName());
+        }
         LOG.debug("end of findByNameTest())");
 
     }

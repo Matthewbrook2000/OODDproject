@@ -35,7 +35,8 @@ public class AppointmentDAOTest {
     @Test
     public void createAppointmentDAOTest() {
         LOG.debug("start of createAppointmentDAOTest(");
-        // this test simply runs the before method
+        appointmentDao = daoFactory.getAppointmentDAO();
+        assertNotNull(appointmentDao);
         LOG.debug("end of createAppointmentDAOTest(");
     }
     
