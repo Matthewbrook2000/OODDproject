@@ -10,6 +10,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.solent.com504.project.impl.service.ServiceObjectFactoryJpaImpl;
+import org.solent.com504.project.model.dto.Appointment;
+import org.solent.com504.project.model.dto.Person;
+import org.solent.com504.project.model.dto.Role;
 import org.solent.com504.project.model.service.ServiceFacade;
 import org.solent.com504.project.model.service.ServiceObjectFactory;
 
@@ -54,5 +57,69 @@ public class ServiceFacadeJpaTest {
     }
 
     // WHAT OTEHR TESTS DO YOU NEED FOR HE SERVICE?
+    @Test
+    public void testAddAppointment(){
+        System.out.println("start ServiceFacadeTest testGetHeartbeat()");
+        assertNotNull(serviceFacade);
+        
+        Person personA = serviceFacade.newPerson(2L, "steve", "harrington", Role.PATIENT, "that place");
+        Person personB = serviceFacade.newPerson(3L, "john", "something", Role.PATIENT, "this place");
+        
+        Appointment appointment = serviceFacade.addAppointment("test", personA, personB, 1, 1, 1, 2001, 30);
+        
+        assertNotNull(appointment);
+    }
     
+    @Test
+    public void testNewPerson(){
+        System.out.println("start ServiceFacadeTest testNewPerson()");
+        assertNotNull(serviceFacade);
+        
+        Person person = serviceFacade.newPerson(Long.MIN_VALUE, "john", "doe", Role.PATIENT, "123 street");
+        
+        assertNotNull(person);
+        System.out.println("end ServiceFacadeTest testNewPerson()");
+    }
+    
+    @Test
+    public void testGetAppointment(){
+        System.out.println("start ServiceFacadeTest testGetAppointment()");
+        assertNotNull(serviceFacade);
+        
+        testAddAppointment();
+        
+        Appointment gotAppointment = serviceFacade.getAppointment(2L);
+        
+        assertNotNull(gotAppointment);
+        System.out.println(gotAppointment);
+        
+        System.out.println("end ServiceFacadeTest testGetAppointment()");
+    }
+    
+    @Test
+    public void testDeleteAppointment(){
+        System.out.println("start ServiceFacadeTest testDeleteAppointment()");
+        assertNotNull(serviceFacade);
+        
+        testAddAppointment();
+        
+        serviceFacade.deleteAppointment(2L);
+        Appointment gotAppointment = serviceFacade.getAppointment(2L);
+        assertNull(gotAppointment);
+
+        System.out.println("end ServiceFacadeTest testDeleteAppointment()");
+    }
+    
+    @Test
+    public void testGetAllAppointments(){
+        System.out.println("start ServiceFacadeTest testGetAllAppointment()");
+        assertNotNull(serviceFacade);
+        
+        testAddAppointment();
+        
+        List<Appointment> appointmentList = serviceFacade.getAllAppointments();
+        assertNotNull(appointmentList);
+  
+        System.out.println("end ServiceFacadeTest testGetAllAppointment()");
+    }
 }

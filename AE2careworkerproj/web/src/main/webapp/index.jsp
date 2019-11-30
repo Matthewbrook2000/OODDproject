@@ -9,6 +9,7 @@ and open the template in the editor.
 
     
     /**
+     * add input for new person
      * Flush out service facade
      * Flush out Service facade rest
      * Flush out Rest service

@@ -1,6 +1,9 @@
 package org.solent.com504.project.model.service;
 
+import java.util.List;
 import org.solent.com504.project.model.dto.Appointment;
+import org.solent.com504.project.model.dto.Person;
+import org.solent.com504.project.model.dto.Role;
 
 public interface ServiceFacade {
     
@@ -8,17 +11,21 @@ public interface ServiceFacade {
     
     public int updateHeartbeat();
     
+    public Person newPerson(Long id, String firstName, String secondName, Role role, String address);
+    
     public Appointment arrived(String name, String location);
     
-    public Appointment addAppointment();
+    public Appointment addAppointment(String description, Person personA, Person personB, long id, int hr, int mth, int yr, int durationMinutes);
     
-    public boolean deleteAppointment();
+    public boolean deleteAppointment(long id);
     
-    public Appointment getAppointment();
+    public Appointment getAppointment(long id);
+    
+    public Person getPerson(long id);
     
     public Appointment modifyAppointment();
     
-    public Appointment getAllAppointments();
+    public List<Appointment> getAllAppointments();
     
     public boolean finishedAppointment(); //description, personA, personB, id, hr, mth, yr, durationMinutes
     
@@ -38,3 +45,4 @@ public interface ServiceFacade {
      * finished appointment 
      **/
 }
+

@@ -13,6 +13,14 @@
 response.setIntHeader("Refresh", 20);
 String carername = request.getParameter("CarerName");
 String patientname = request.getParameter("PatientName");
+String desc = request.getParameter("Desc");
+String stringhr = request.getParameter("Hour");
+int hr = Integer.parseInt(stringhr);            //error
+//int hr = Integer.parseInt(request.getParameter("Hour"));
+//int mth = Integer.parseInt(request.getParameter("Month"));
+//int yr = Integer.parseInt(request.getParameter("Year"));
+//int duration = Integer.parseInt(request.getParameter("Duration"));
+//long id = Long.parseLong(request.getParameter("id"));
 
 ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade();
 
@@ -32,6 +40,12 @@ ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade(
         <form>
             <p>Careworker <input type="text" name="CarerName"></p>
             <p>Patient <input type="text" name="PatientName"></p>
+            <p>Description <input type="text" name="Desc"> </p>
+            <p>id <input type="number" name="id"> </p>
+            <p>Hour <input type="number" name="Hour"> </p>
+            <p>Month <input type="number" name="Month"> </p>
+            <p>Year <input type="number" name="Year"> </p>
+            <p>Duration <input type="number" name="Duration"> </p>
             <button type="submit" name="action" value="create">New appointment</button>
         </form>
         <h2>table</h2>
@@ -44,19 +58,19 @@ ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade(
                 <th>Delete </th>
             </tr>
             <% //for (Animal animal : farmFacade.getAllAnimals()) {%>
-<!--            <tr>
+           <tr>
                 <td><%//=animal.getAnimalType().getType()%></td>
                 <td><%//=animal.getName()%></td>
                 <td><%//=animal.getAddress()%></td>
                 <td><%//=animal.getAnimalType().getSound()%></td>
                 <td>
                     <form action="./farm2.jsp" method="post">
-                        <input type="hidden" name="animalName" value="<%=animal.getName()%>">
+                        <input type="hidden" name="animalName" value="<%//=animal.getName()%>">
                         <input type="hidden" name="action" value="deleteAnimal">
                         <button type="submit" >Delete</button>
                     </form> 
                 </td>
-            </tr>-->
+            </tr>
         </table>
     </body>
 </html>
