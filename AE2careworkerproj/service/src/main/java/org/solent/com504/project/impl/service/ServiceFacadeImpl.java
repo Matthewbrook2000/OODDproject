@@ -82,8 +82,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
         }
         Appointment appointmentTemp = appointmentDao.findById(id);
         
-        return appointmentTemp;
-        
+        return appointmentTemp;    
     }
 
     @Override
@@ -155,6 +154,11 @@ public class ServiceFacadeImpl implements ServiceFacade {
         Person personTemp = personDao.findById(id);
         
         return personTemp;
+    }
+
+    @Override
+    public List<Person> getAllPersons() {
+        return personDao.findAll();
     }
 
     

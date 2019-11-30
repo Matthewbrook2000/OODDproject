@@ -27,6 +27,8 @@ public interface ServiceFacade {
     
     public List<Appointment> getAllAppointments();
     
+    public List<Person> getAllPersons();
+    
     public boolean finishedAppointment(); //description, personA, personB, id, hr, mth, yr, durationMinutes
     
     

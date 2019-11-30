@@ -36,6 +36,9 @@ and open the template in the editor.
         <h2>Appointment</h2>
         <p> <a href="../projectfacadeweb/appointments.jsp">Appointment page</a>
         
+        <h2>People</h2>
+        <p> <a href="../projectfacadeweb/people.jsp">People page</a>
+            
         <h2>Workers</h2>
         <table border="1">
             <tr>
