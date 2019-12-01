@@ -5,6 +5,10 @@ import org.solent.com504.project.model.dto.Appointment;
 import org.solent.com504.project.model.dto.Person;
 import org.solent.com504.project.model.dto.Role;
 
+/**
+ *
+ * @author Matt- Laptop
+ */
 public interface ServiceFacade {
     
     public String getHeartbeat();
@@ -29,22 +33,11 @@ public interface ServiceFacade {
     
     public List<Person> getAllPersons();
     
-    public boolean finishedAppointment(); //description, personA, personB, id, hr, mth, yr, durationMinutes
+    public boolean finishedAppointment(); 
     
+    public boolean deletePerson(long id);
     
-    /**
-     * *CALL CENTER*
-     load appointments  
-     retrieve all appointments *
-     * modify appointment *
-     * Delete appointment * 
-     * add new appointment *
-     * retrieve appointment *
-     * 
-     * *CARE WORKER*
-     * arrived at appointment *
-     * Update time *
-     * finished appointment 
-     **/
+    public Appointment modifyPerson();
+    
 }
 

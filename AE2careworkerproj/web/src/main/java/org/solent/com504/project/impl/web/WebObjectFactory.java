@@ -41,6 +41,10 @@ public class WebObjectFactory implements ServletContextListener {
 
     private static ServiceObjectFactory serviceObjectFactory = null;
 
+    /**
+     *
+     * @return
+     */
     public static ServiceFacade getServiceFacade() {
         if (serviceFacade == null) {
             synchronized (WebObjectFactory.class) {
@@ -61,12 +65,20 @@ public class WebObjectFactory implements ServletContextListener {
         return serviceFacade;
     }
 
+    /**
+     *
+     * @param sce
+     */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         LOG.debug("WEB OBJECT FACTORY context initialised");
         // nothing to do
     }
 
+    /**
+     *
+     * @param sce
+     */
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         LOG.debug("WEB OBJECT FACTORY shutting down context");

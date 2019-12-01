@@ -11,6 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
+String errorMessage = "";
 response.setIntHeader("Refresh", 20);
 String firstname = request.getParameter("FirstName");
 String secondname = request.getParameter("SecondName");
@@ -18,12 +19,18 @@ String address = request.getParameter("Address");
 String actionString = request.getParameter("action");
 // add role and id inputs
 
-
-ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade();
+ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade(); //serviceFacade is undefined
 
 if (firstname != null && secondname != null && address != null && actionString != "arrived") {
             serviceFacade.newPerson(null, firstname, secondname, null, address);
+} else if (actionString != "modify"){       //need to implement modify
+            
+} else if(actionString != "delete") {
+            serviceFacade.deletePerson(id); //get id input working
+} else {
+    errorMessage = "ERROR: page called for unknown action";
 }
+
 %>
 <html>
     <head>
@@ -33,6 +40,7 @@ if (firstname != null && secondname != null && address != null && actionString !
     <body>
         <p>The time is: <%= new Date().toString() %> (note page is auto refreshed every 20 seconds)</p>
         <h1>People</h1>
+        <div style="color:red;"><%=errorMessage%></div>
         <h2>Add person</h2>
         <form>
             <p>First Name <input type="text" name="FirstName"></p>
@@ -41,6 +49,7 @@ if (firstname != null && secondname != null && address != null && actionString !
             <p>Address <input type="number" name="Address"> </p>
             <p>Id <input type="number" name="id"> </p>
             <button type="submit" name="action" value="create">New Person</button>
+            <button type="submit" name="action" value="modify">Modify Person</button>
         </form>
         <h2>table</h2>
         <table border="1">
@@ -61,7 +70,7 @@ if (firstname != null && secondname != null && address != null && actionString !
                     <form action="./people.jsp" method="post">
                         <input type="hidden" name="personId" value="<%=person.getId()%>">
                         <input type="hidden" name="action" value="deleteAnimal">
-                        <button type="submit" >Delete</button>
+                        <button type="submit" name="action" value="delete">Delete</button>
                     </form> 
                 </td>
             </tr>

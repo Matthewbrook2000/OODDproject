@@ -13,6 +13,10 @@ import org.solent.com504.project.model.dto.Person;
 import org.solent.com504.project.model.dto.Role;
 import org.solent.com504.project.model.service.ServiceFacade;
 
+/**
+ *
+ * @author Matt- Laptop
+ */
 public class ServiceFacadeImpl implements ServiceFacade {
         final static Logger LOG = LogManager.getLogger(ServiceFacadeImpl.class);
 
@@ -23,8 +27,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
        // used to concurently count heartbeat requests
     private static AtomicInteger heartbeatRequests = new AtomicInteger();
 
-    // setters for DAOs
-    public void setPersonDao(PersonDAO personDao) {
+        public void setPersonDao(PersonDAO personDao) {
         this.personDao = personDao;
     }
 
@@ -159,6 +162,25 @@ public class ServiceFacadeImpl implements ServiceFacade {
     @Override
     public List<Person> getAllPersons() {
         return personDao.findAll();
+    }
+
+    @Override
+    public boolean deletePerson(long id) {
+        if (id == 0) {
+            throw new IllegalArgumentException("name cannot be null");
+        }
+        Person person = getPerson(id);
+        if (person != null) {
+            personDao.deleteById(id);
+            return true;
+        }
+        
+        return false;
+    }
+
+    @Override
+    public Appointment modifyPerson() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

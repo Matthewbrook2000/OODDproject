@@ -4,6 +4,8 @@
     Author     : Matt- Laptop
 --%>
 
+<%@page import="org.solent.com504.project.model.dto.Appointment"%>
+<%@page import="java.util.List"%>
 <%@page import="org.solent.com504.project.impl.web.WebObjectFactory"%>
 <%@page import="org.solent.com504.project.model.service.ServiceFacade"%>
 <%@page import="java.util.Date"%>
@@ -24,7 +26,7 @@ String stringhr = request.getParameter("Hour");
 
 ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade();
 
-//if (name != null && location != null && actionString != "arrived") {
+//if (carername != null && patientname != null && actionString != "arrived") {
 //            serviceFacade.arrived(name, location);
 
 %>

@@ -9,12 +9,15 @@ and open the template in the editor.
 
     
     /**
-     * add input for new person
-     * Flush out service facade
+     * fix issue with not being able to take in int's
+     * fix issue on people.jsp with serviceFacade not being defined
+     * Finish service facade as i go
+     * get the call center appointmenst page working
      * Flush out Service facade rest
      * Flush out Rest service
-     * get the call center appointmenst page working
      * get rest stuff working for carer side
+     * * Flush out Service facade rest
+     * * Flush out Rest service
      * make pretty
      * 
      * 
