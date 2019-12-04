@@ -8,6 +8,7 @@
 <%@page import="org.solent.com504.project.impl.web.WebObjectFactory"%>
 <%@page import="org.solent.com504.project.model.service.ServiceFacade"%>
 <%@page import="java.util.Date"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
@@ -18,15 +19,19 @@ String secondname = request.getParameter("SecondName");
 String address = request.getParameter("Address");
 String role = request.getParameter("role");
 String actionString = request.getParameter("action");
+String stringid = request.getParameter("personId");
 
 ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade(); //serviceFacade is undefined
 
+
 if (firstname != null && secondname != null && address != null && actionString != "arrived") {
             serviceFacade.newPerson(firstname, secondname, role, address);
-} else if (actionString != "modify"){       //need to implement modify
+} else if (actionString == "modify"){       //need to implement modify
             
-} else if(actionString != "delete") {
-            //serviceFacade.deletePerson(); //get id input working
+} else if(actionString == "delete") {
+            long id = Long.parseLong(stringid);
+            errorMessage = "errroe s df dsf ";
+            serviceFacade.deletePerson(id);
 } else {
     errorMessage = "ERROR: page called for unknown action";
 }
@@ -42,7 +47,7 @@ if (firstname != null && secondname != null && address != null && actionString !
         <h1>People</h1>
         <div style="color:red;"><%=errorMessage%></div>
         <h2>Add person</h2>
-        <form>
+        <form method="post">
             <p>First Name <input type="text" name="FirstName"></p>
             <p>Second Name <input type="text" name="SecondName"></p>
             <p>Role: Carer <input type="radio" name="Role" value="Carer"> Patient <input type="radio" name="Role" value="Patient"></p>
@@ -69,7 +74,6 @@ if (firstname != null && secondname != null && address != null && actionString !
                 <td>
                     <form action="./people.jsp" method="post">
                         <input type="hidden" name="personId" value="<%=person.getId()%>">
-                        <input type="hidden" name="action" value="deleteAnimal">
                         <button type="submit" name="action" value="delete">Delete</button>
                     </form> 
                 </td>

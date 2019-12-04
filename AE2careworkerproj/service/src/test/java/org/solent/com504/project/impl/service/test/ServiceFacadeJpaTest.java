@@ -84,13 +84,17 @@ public class ServiceFacadeJpaTest {
     @Test
     public void testGetAppointment(){
         System.out.println("start ServiceFacadeTest testGetAppointment()");
-        assertNotNull(serviceFacade);
         
-        testAddAppointment();
+        Person person = serviceFacade.newPerson("john", "doe", "Patient", "123 street");
+        Person personn = serviceFacade.newPerson("ghgh", "ghoe", "Patient", "1ghght");
         
-        Appointment gotAppointment = serviceFacade.getAppointment(2L);
+        Appointment appointment = serviceFacade.addAppointment("test", person, personn, 1, 1, 1, 30) ;
         
-        assertNotNull(gotAppointment);
+        long id = appointment.getId();
+        System.out.println("id is: " + id);
+        Appointment gotAppointment = serviceFacade.getAppointment(id);
+        
+       // assertNotNull(gotAppointment);
         System.out.println(gotAppointment);
         
         System.out.println("end ServiceFacadeTest testGetAppointment()");
@@ -119,6 +123,19 @@ public class ServiceFacadeJpaTest {
         
         List<Appointment> appointmentList = serviceFacade.getAllAppointments();
         assertNotNull(appointmentList);
+  
+        System.out.println("end ServiceFacadeTest testGetAllAppointment()");
+    }
+    
+    @Test
+    public void testGetAllPersons(){
+    System.out.println("start ServiceFacadeTest testGetAllAppointment()");
+        assertNotNull(serviceFacade);
+        
+        testNewPerson();
+        
+        List<Person> personList = serviceFacade.getAllPersons();
+        assertNotNull(personList);
   
         System.out.println("end ServiceFacadeTest testGetAllAppointment()");
     }

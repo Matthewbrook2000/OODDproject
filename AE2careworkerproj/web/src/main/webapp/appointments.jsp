@@ -24,7 +24,7 @@ String stringyr = request.getParameter("Year");
 String stringdur = request.getParameter("Duration");
 String stringid = request.getParameter("id");
 
-
+//for adding appointment have a drop down of all people to select from
 
 ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade();
 
