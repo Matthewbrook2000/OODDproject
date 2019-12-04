@@ -16,17 +16,17 @@ response.setIntHeader("Refresh", 20);
 String firstname = request.getParameter("FirstName");
 String secondname = request.getParameter("SecondName");
 String address = request.getParameter("Address");
+String role = request.getParameter("role");
 String actionString = request.getParameter("action");
-// add role and id inputs
 
 ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade(); //serviceFacade is undefined
 
 if (firstname != null && secondname != null && address != null && actionString != "arrived") {
-            serviceFacade.newPerson(null, firstname, secondname, null, address);
+            serviceFacade.newPerson(firstname, secondname, role, address);
 } else if (actionString != "modify"){       //need to implement modify
             
 } else if(actionString != "delete") {
-            serviceFacade.deletePerson(id); //get id input working
+            //serviceFacade.deletePerson(); //get id input working
 } else {
     errorMessage = "ERROR: page called for unknown action";
 }
@@ -45,9 +45,9 @@ if (firstname != null && secondname != null && address != null && actionString !
         <form>
             <p>First Name <input type="text" name="FirstName"></p>
             <p>Second Name <input type="text" name="SecondName"></p>
-            <p>Role <input type="text" name="Role"> </p>
-            <p>Address <input type="number" name="Address"> </p>
-            <p>Id <input type="number" name="id"> </p>
+            <p>Role: Carer <input type="radio" name="Role" value="Carer"> Patient <input type="radio" name="Role" value="Patient"></p>
+            
+            <p>Address <input type="text" name="Address"> </p>
             <button type="submit" name="action" value="create">New Person</button>
             <button type="submit" name="action" value="modify">Modify Person</button>
         </form>

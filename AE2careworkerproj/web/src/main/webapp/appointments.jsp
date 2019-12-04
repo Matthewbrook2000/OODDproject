@@ -13,21 +13,33 @@
 <!DOCTYPE html>
 <%
 response.setIntHeader("Refresh", 20);
+String errorMessage = "";
+String actionString = request.getParameter("action");
 String carername = request.getParameter("CarerName");
 String patientname = request.getParameter("PatientName");
 String desc = request.getParameter("Desc");
 String stringhr = request.getParameter("Hour");
-//int hr = Integer.parseInt(stringhr);            //error
-//int hr = Integer.parseInt(request.getParameter("Hour"));
-//int mth = Integer.parseInt(request.getParameter("Month"));
-//int yr = Integer.parseInt(request.getParameter("Year"));
-//int duration = Integer.parseInt(request.getParameter("Duration"));
-//long id = Long.parseLong(request.getParameter("id"));
+String stringmth = request.getParameter("Month");
+String stringyr = request.getParameter("Year");
+String stringdur = request.getParameter("Duration");
+String stringid = request.getParameter("id");
+
+
 
 ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade();
 
-//if (carername != null && patientname != null && actionString != "arrived") {
+if (carername != null && patientname != null && actionString != "arrived") {
+    if(stringhr != null && stringmth != null && stringyr != null && stringdur != null && stringid != "0"){
+        int hr = Integer.parseInt(stringhr);           
+        int mth = Integer.parseInt(stringhr);
+        int yr = Integer.parseInt(stringyr);
+        int duration = Integer.parseInt(stringdur);
+        long id = Long.parseLong(stringid);
+    } else {
+        errorMessage = "ERROR: inputs cannot be null";
+    }
 //            serviceFacade.arrived(name, location);
+}
 
 %>
 <html>
@@ -38,6 +50,7 @@ ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade(
     <body>
         <p>The time is: <%= new Date().toString() %> (note page is auto refreshed every 20 seconds)</p>
         <h1>Appointments</h1>
+        <div style="color:red;"><%=errorMessage%></div>
         <h2>Add appointment</h2>
         <form>
             <p>Careworker <input type="text" name="CarerName"></p>

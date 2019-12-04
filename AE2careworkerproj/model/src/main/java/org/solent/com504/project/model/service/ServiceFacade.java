@@ -15,11 +15,11 @@ public interface ServiceFacade {
     
     public int updateHeartbeat();
     
-    public Person newPerson(Long id, String firstName, String secondName, Role role, String address);
+    public Person newPerson(String firstName, String secondName, String role, String address);
     
     public Appointment arrived(String name, String location);
     
-    public Appointment addAppointment(String description, Person personA, Person personB, long id, int hr, int mth, int yr, int durationMinutes);
+    public Appointment addAppointment(String description, Person personA, Person personB, int hr, int mth, int yr, int durationMinutes);
     
     public boolean deleteAppointment(long id);
     

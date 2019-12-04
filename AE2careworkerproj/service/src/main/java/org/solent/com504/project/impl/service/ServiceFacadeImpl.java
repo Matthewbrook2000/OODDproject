@@ -105,7 +105,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
-    public Appointment addAppointment(String description, Person personA, Person personB, long id, int hr, int mth, int yr, int durationMinutes) {
+    public Appointment addAppointment(String description, Person personA, Person personB, int hr, int mth, int yr, int durationMinutes) {
         
           if (description == null){
               throw new IllegalArgumentException("description cannot be null");
@@ -121,7 +121,6 @@ public class ServiceFacadeImpl implements ServiceFacade {
         appointment.setDescripton(description);
         appointment.setDurationMinutes(durationMinutes);
         appointment.setHr(hr);
-        appointment.setId(id);
         appointment.setMth(mth);
         appointment.setPersonA(personA);
         appointment.setPersonB(personB);
@@ -131,20 +130,24 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
-    public Person newPerson(Long id, String firstName, String secondName, Role role, String address) {
+    public Person newPerson(String firstName, String secondName, String role, String address) {
         if (firstName == null){
             throw new IllegalArgumentException("first name cannot be null");
         }
         if (secondName == null){
               throw new IllegalArgumentException("second name cannot be null");
           }         
-        
+              
         Person person = new Person();
         person.setAddress(address);
         person.setFirstName(firstName);
         person.setSecondName(secondName);
-        person.setId(id);
-        person.setRole(role);
+        if("Carer".equals(role)) {
+            person.setRole(Role.CARER);
+        } else if ("Patient".equals(role)) {
+            person.setRole(Role.PATIENT);
+            
+        }
         personDao.save(person);
         return person;
     }

@@ -62,10 +62,10 @@ public class ServiceFacadeJpaTest {
         System.out.println("start ServiceFacadeTest testGetHeartbeat()");
         assertNotNull(serviceFacade);
         
-        Person personA = serviceFacade.newPerson(2L, "steve", "harrington", Role.PATIENT, "that place");
-        Person personB = serviceFacade.newPerson(3L, "john", "something", Role.PATIENT, "this place");
+        Person personA = serviceFacade.newPerson("steve", "harrington", "Patient", "that place");
+        Person personB = serviceFacade.newPerson("john", "something", "Patient", "this place");
         
-        Appointment appointment = serviceFacade.addAppointment("test", personA, personB, 1, 1, 1, 2001, 30);
+        Appointment appointment = serviceFacade.addAppointment("test", personA, personB, 1, 1, 1, 30) ;
         
         assertNotNull(appointment);
     }
@@ -75,7 +75,7 @@ public class ServiceFacadeJpaTest {
         System.out.println("start ServiceFacadeTest testNewPerson()");
         assertNotNull(serviceFacade);
         
-        Person person = serviceFacade.newPerson(Long.MIN_VALUE, "john", "doe", Role.PATIENT, "123 street");
+        Person person = serviceFacade.newPerson("john", "doe", "Patient", "123 street");
         
         assertNotNull(person);
         System.out.println("end ServiceFacadeTest testNewPerson()");
