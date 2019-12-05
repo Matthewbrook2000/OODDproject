@@ -23,6 +23,7 @@ import org.glassfish.jersey.filter.LoggingFilter;
 import org.solent.com504.project.model.dto.Appointment;
 import org.solent.com504.project.model.dto.Person;
 import org.solent.com504.project.model.dto.ReplyMessage;
+import org.solent.com504.project.model.dto.Role;
 import org.solent.com504.project.model.service.ServiceFacade;
 
 /**
@@ -138,6 +139,11 @@ public class ServiceRestClientImpl implements ServiceFacade {
 
     @Override
     public Appointment modifyPerson() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Person> getPersonByRole(Role role) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

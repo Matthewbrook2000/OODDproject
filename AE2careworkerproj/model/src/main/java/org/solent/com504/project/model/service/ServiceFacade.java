@@ -27,6 +27,8 @@ public interface ServiceFacade {
     
     public Person getPerson(long id);
     
+    public List<Person> getPersonByRole(Role role);
+    
     public Appointment modifyAppointment();
     
     public List<Appointment> getAllAppointments();

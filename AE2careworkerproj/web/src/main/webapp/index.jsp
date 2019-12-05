@@ -9,8 +9,6 @@ and open the template in the editor.
 
     
     /**
-     * fix issue with not being able to take in int's
-     * fix issue on people.jsp with serviceFacade not being defined
      * Finish service facade as i go
      * get the call center appointmenst page working
      * Flush out Service facade rest

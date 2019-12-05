@@ -186,6 +186,14 @@ public class ServiceFacadeImpl implements ServiceFacade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public List<Person> getPersonByRole(Role role) {
+        
+        List<Person> personList = personDao.findByRole(role);
+        
+        return personList;
+    }
+
     
 
 }

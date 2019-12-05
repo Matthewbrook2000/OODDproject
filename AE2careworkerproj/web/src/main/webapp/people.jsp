@@ -17,23 +17,21 @@ response.setIntHeader("Refresh", 20);
 String firstname = request.getParameter("FirstName");
 String secondname = request.getParameter("SecondName");
 String address = request.getParameter("Address");
-String role = request.getParameter("role");
+String role = request.getParameter("Role");
 String actionString = request.getParameter("action");
 String stringid = request.getParameter("personId");
 
 ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade(); //serviceFacade is undefined
 
 
+
 if (firstname != null && secondname != null && address != null && actionString != "arrived") {
             serviceFacade.newPerson(firstname, secondname, role, address);
-} else if (actionString == "modify"){       //need to implement modify
+} else if ("modify".equals(actionString)){       //need to implement modify
             
-} else if(actionString == "delete") {
+} else if("delete".equals(actionString)) {
             long id = Long.parseLong(stringid);
-            errorMessage = "errroe s df dsf ";
             serviceFacade.deletePerson(id);
-} else {
-    errorMessage = "ERROR: page called for unknown action";
 }
 
 %>
@@ -45,6 +43,7 @@ if (firstname != null && secondname != null && address != null && actionString !
     <body>
         <p>The time is: <%= new Date().toString() %> (note page is auto refreshed every 20 seconds)</p>
         <h1>People</h1>
+        <p> <a href="../projectfacadeweb">Home page</a>
         <div style="color:red;"><%=errorMessage%></div>
         <h2>Add person</h2>
         <form method="post">
