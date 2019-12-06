@@ -47,17 +47,27 @@ public class RestClientServiceFacadeTest {
 
         LOG.debug("end of testGetHeartbeat()");
     }
-    
-    @Test 
-    public void testArrived(){
-        LOG.debug("testArrived()");
-        String name = "name";
-        String location = "location";
-        Appointment appointment = serviceFacade.arrived(name, location);
-        assertNotNull(appointment);
-        String msg = "returned :" + appointment;
-        LOG.debug(msg);
-        LOG.debug("end of testAddAnimal()");
-    }
+//    
+//    @Test 
+//    public void testArrived(){
+//        LOG.debug("testArrived()");
+//        String name = "name";
+//        String location = "location";
+//        Appointment appointment = serviceFacade.arrived(name, location);
+//        assertNotNull(appointment);
+//        String msg = "returned :" + appointment;
+//        LOG.debug(msg);
+//        LOG.debug("end of testAddAnimal()");
+//    }
+    @Test
+    public void testGetAllAnimals(){
+        LOG.debug("start of testGetAllAppointments()");
+        String msg = "returned :";
+        List<Appointment> appointments = serviceFacade.getAllAppointments();
+        for (Appointment value : appointments) {
+            msg = msg + value + ",";
+        }
 
+        LOG.debug("end of testGetAllAnimals()");
+    }
 }

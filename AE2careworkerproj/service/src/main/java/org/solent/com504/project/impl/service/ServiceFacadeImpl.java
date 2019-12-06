@@ -41,23 +41,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
     public String getHeartbeat() {
         return "heartbeat number "+heartbeatRequests.getAndIncrement()+ " "+ new Date().toString();
     }
-    @Override
-    public Appointment arrived(String name, String location) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    
-    //rest works, sends error end to end but the logic behind adding a new appointment doesnt work.
-//        if (name == null || name.isEmpty()) {
-//            throw new IllegalArgumentException("name cannot be null or empty ");
-//        }
-//        if (location == null || location.isEmpty()) {
-//            throw new IllegalArgumentException("location cannot be null");
-//        }
-//        Appointment appointment = new Appointment(); 
-//        Appointment appointment = appointmentDao.save(appointment);
-//        appointmentDao.save(appointment);
-//        return appointment;
-    }
-
+  
     @Override
     public int updateHeartbeat() {
         //try update time
@@ -86,11 +70,6 @@ public class ServiceFacadeImpl implements ServiceFacade {
         Appointment appointmentTemp = appointmentDao.findById(id);
         
         return appointmentTemp;    
-    }
-
-    @Override
-    public Appointment modifyAppointment() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -179,11 +158,6 @@ public class ServiceFacadeImpl implements ServiceFacade {
         }
         
         return false;
-    }
-
-    @Override
-    public Appointment modifyPerson() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

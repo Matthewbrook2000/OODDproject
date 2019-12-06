@@ -19,8 +19,9 @@ String location = request.getParameter("CarerLocation");
 
 ServiceFacade serviceFacade = (ServiceFacade) WebClientObjectFactory.getServiceFacade();
 
-if (name != null && location != null && actionString != "arrived") {
-            serviceFacade.arrived(name, location);
+if (name != null && location != null && actionString != "login") {
+                
+//            serviceFacade.arrived(name, location);
     }
     /** TO-DO   
      * add ability to create users to call center, this will be on a seperate jsp with a list of persons, each will either be a carer or caree, and then a button to add 
@@ -56,20 +57,55 @@ if (name != null && location != null && actionString != "arrived") {
          <p>The time is: <%= new Date().toString() %> (note page is auto refreshed every 20 seconds)</p>
         <h1>Example Client JSP Pages</h1>
         
+        <p> <a href="../projectfacadeweb">Home page</a>
         <h2>Your details</h2>
-
-        <!-- post avoids url encoded parameters -->
-     
-        
-        <h2>Buttons</h2>
-        <form>
+        <form method="post">
             <input type="text" name="CarerName">
-            <input type="text" name="CarerLocation">
-            <button type="submit" name="action" value="arrived">Arrived</button>
-            <button type="submit" name="action" value="extTime">Extend time</button>
-            <button type="submit" name="action" value="leaving">Leaving</button>
+            <button type="submit" name="action" value="login">Log in</button>
         </form>
-
+        <table border="1">
+            <tr>
+                <th>Id </th>
+                <th>Careworker </th>
+                <th>Patient </th>
+                <th>Description </th>
+                <th>Date </th>
+                <th>Arrived </th>
+                <th>Time left </th>
+                <th>Extend time </th>
+                <th>Job finished</th>
+            </tr>
+            <% // if careworker = careworker input%>
+           <tr>
+                <td><%%></td>
+                <td><%%></td>             
+                <td><%%></td>
+                <td><%%></td>
+                <td><%%></td>
+                <td>
+                    <form action="./people.jsp" method="post">
+                        <input type="hidden" name="personId" value="<%%>">
+                        <button type="submit" name="action" value="arrived">Arrived</button>
+                    </form> 
+                </td>
+                <td><%%></td>
+                <td>
+                    <form action="./people.jsp" method="post">
+                        <input type="hidden" name="personId" value="<%%>">
+                        <button type="submit" name="action" value="extend">Extend</button>
+                    </form> 
+                </td>
+                <td>
+                    <form action="./people.jsp" method="post">
+                        <input type="hidden" name="personId" value="<%%>">
+                        <button type="submit" name="action" value="delete">Finished</button>
+                    </form> 
+                </td>
+            </tr>
+            <%
+                
+            %>
+        </table>
         <h2>Simple Farm Client Example</h2>
         <!-- http://localhost:8084/projectfacadeweb-client/testClientHeartbeat.jsp -->
         <p> click on <a href="../projectfacadeweb-client/testClientHeartbeat.jsp">testClientHeartbeat.jsp</a> to open client application

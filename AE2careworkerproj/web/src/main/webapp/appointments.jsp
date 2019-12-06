@@ -10,11 +10,11 @@
 <%@page import="java.util.List"%>
 <%@page import="org.solent.com504.project.impl.web.WebObjectFactory"%>
 <%@page import="org.solent.com504.project.model.service.ServiceFacade"%>
-<%@page import="java.util.Date"%>
+<%@page import="java.util.Date"%> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-response.setIntHeader("Refresh", 20);
+response.setIntHeader("Refresh", 30);
 String errorMessage = "";
 String actionString = request.getParameter("action");
 String stringcid = request.getParameter("CarerId");
@@ -24,6 +24,7 @@ String stringhr = request.getParameter("Hour");
 String stringmth = request.getParameter("Month");
 String stringyr = request.getParameter("Year");
 String stringdur = request.getParameter("Duration");
+String stringid = request.getParameter("appointmentId");
 
 ServiceFacade serviceFacade = (ServiceFacade) WebObjectFactory.getServiceFacade();
 
@@ -39,9 +40,16 @@ if (stringcid != null && stringpid != null && actionString != "create") {
         Person personB = serviceFacade.getPerson(patientid);
         serviceFacade.addAppointment(desc, personA, personB, hr, mth, yr, duration);
     } 
-//            serviceFacade.arrived(name, location);
+} else if("delete".equals(actionString)) {
+            long id = Long.parseLong(stringid);
+            serviceFacade.deleteAppointment(id);
+} else if("arrived".equals(actionString)) {
+//            long id = Long.parseLong(stringid);
+//            serviceFacade.deleteAppointment(id);
+                
 }
 
+//            serviceFacade.arrived(name, location);
 %>
 <html>
     <head>
@@ -49,12 +57,12 @@ if (stringcid != null && stringpid != null && actionString != "create") {
         <title>JSP Page</title>
     </head>
     <body>
-        <p>The time is: <%= new Date().toString() %> (note page is auto refreshed every 20 seconds)</p>
+        <p>The time is: <%= new Date().toString() %> (note page is auto refreshed every 30 seconds)</p>
         <h1>Appointments</h1>
         <p> <a href="../projectfacadeweb">Home page</a>
         <div style="color:red;"><%=errorMessage%></div>
         <h2>Add appointment</h2>
-        <form>
+        <form method="Post">
             Careworker
             <select name="CarerId">
                 <% for (Person person : serviceFacade.getPersonByRole(Role.CARER)) {%>
@@ -85,22 +93,49 @@ if (stringcid != null && stringpid != null && actionString != "create") {
                 <th>Id </th>
                 <th>Careworker </th>
                 <th>Patient </th>
-                <th>Status </th>
+                <th>Description </th>
+                <th>Date </th>
+                <th>Arrived </th>
+                <th>Time left </th>
                 <th>Extend time </th>
                 <th>Delete </th>
             </tr>
-            <% for (Appointment appointment : serviceFacade.getAllAppointments()) {%>
+            <% for (Appointment appointment : serviceFacade.getAllAppointments()) {
+                    Person personA = appointment.getPersonA();
+                    String personAFN = personA.getFirstName();
+                    String personASN = personA.getSecondName();
+                    String personAName = personAFN + " " + personASN;
+                    
+                    Person personB = appointment.getPersonB();
+                    String personBFN = personB.getFirstName();
+                    String personBSN = personB.getSecondName();
+                    String personBName = personBFN + " " + personBSN;
+                    
+                    String appDate = appointment.getHr() + " " + appointment.getMth() + " " + appointment.getYr();
+            %>
            <tr>
                 <td><%=appointment.getId()%></td>
-                <td><%=appointment.getPersonA()%></td>
-                <td><%=appointment.getPersonB()%></td>
-                <td><%appointment.getDescripton()%></td>
-                <td></td>
+                <td><%=personAName%></td>
+                <td><%=personBName%></td>
+                <td><%=appointment.getDescripton()%></td>
+                <td><%=appDate%></td>
                 <td>
-                    <form action="./farm2.jsp" method="post">
-                        <input type="hidden" name="animalName" value="<%//=animal.getName()%>">
-                        <input type="hidden" name="action" value="deleteAnimal">
-                        <button type="submit" >Delete</button>
+                    <form action="./appointments.jsp" method="post">
+                        <input type="hidden" name="appointmentId" value="<%=appointment.getId()%>">
+                        <button type="submit" name="action" value="arrived">Arrived</button>
+                    </form> 
+                </td>
+                <td><%%></td>
+                <td>
+                    <form action="./appointments.jsp" method="post">
+                        <input type="hidden" name="appointmentId" value="<%=appointment.getId()%>">
+                        <button type="submit" name="action" value="extend">Extend time</button>
+                    </form>         
+                </td>
+                <td>
+                    <form action="./appointments.jsp" method="post">
+                        <input type="hidden" name="appointmentId" value="<%=appointment.getId()%>">
+                        <button type="submit" name="action" value="delete">Delete</button>
                     </form> 
                 </td>
             </tr>

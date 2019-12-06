@@ -17,8 +17,6 @@ public interface ServiceFacade {
     
     public Person newPerson(String firstName, String secondName, String role, String address);
     
-    public Appointment arrived(String name, String location);
-    
     public Appointment addAppointment(String description, Person personA, Person personB, int hr, int mth, int yr, int durationMinutes);
     
     public boolean deleteAppointment(long id);
@@ -29,8 +27,6 @@ public interface ServiceFacade {
     
     public List<Person> getPersonByRole(Role role);
     
-    public Appointment modifyAppointment();
-    
     public List<Appointment> getAllAppointments();
     
     public List<Person> getAllPersons();
@@ -39,7 +35,6 @@ public interface ServiceFacade {
     
     public boolean deletePerson(long id);
     
-    public Appointment modifyPerson();
     
 }
 

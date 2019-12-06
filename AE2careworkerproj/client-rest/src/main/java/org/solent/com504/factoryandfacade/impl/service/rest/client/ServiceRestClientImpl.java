@@ -58,37 +58,51 @@ public class ServiceRestClientImpl implements ServiceFacade {
         return replyMessage.getDebugMessage();
 
     }
-
+//
+//    @Override
+//    public Appointment arrived(String name, String location) {
+//        LOG.debug("arrived called name=" + name + " location=" + location);
+//
+//        Client client = ClientBuilder.newClient(new ClientConfig().register(LoggingFilter.class));
+//        WebTarget webTarget = client.target(baseUrl).path("arrived");
+//
+//        MultivaluedMap<String, String> formData = new MultivaluedHashMap<String, String>();
+//        formData.add("name", name);
+//        formData.add("location", location);
+//
+//        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
+//        Response response = invocationBuilder.post(Entity.form(formData));
+//
+//        ReplyMessage replyMessage = response.readEntity(ReplyMessage.class);
+//        LOG.debug("Response status=" + response.getStatus() + " ReplyMessage: " + replyMessage);
+//    
+//        if (!replyMessage.getAppointmentList().isEmpty()) {
+//            return replyMessage.getAppointmentList().get(0);
+//        }
+//        return null;
+//    }
+    
     @Override
-    public Appointment arrived(String name, String location) {
-        LOG.debug("arrived called name=" + name + " location=" + location);
+    public List<Appointment> getAllAppointments() {
+        LOG.debug("getAllAppointments Called");
+        List<Appointment> appointmentList = null;
 
         Client client = ClientBuilder.newClient(new ClientConfig().register(LoggingFilter.class));
-        WebTarget webTarget = client.target(baseUrl).path("arrived");
-
-        MultivaluedMap<String, String> formData = new MultivaluedHashMap<String, String>();
-        formData.add("name", name);
-        formData.add("location", location);
+        WebTarget webTarget = client.target(baseUrl).path("getAllAppointments");
 
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
-        Response response = invocationBuilder.post(Entity.form(formData));
+        Response response = invocationBuilder.get();
 
         ReplyMessage replyMessage = response.readEntity(ReplyMessage.class);
         LOG.debug("Response status=" + response.getStatus() + " ReplyMessage: " + replyMessage);
-    
-        if (!replyMessage.getAppointmentList().isEmpty()) {
-            return replyMessage.getAppointmentList().get(0);
-        }
-        return null;
+
+        appointmentList = replyMessage.getAppointmentList();
+
+        return appointmentList;
     }
 
     @Override
     public int updateHeartbeat() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Person newPerson(String firstName, String secondName, String role, String address) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -113,12 +127,17 @@ public class ServiceRestClientImpl implements ServiceFacade {
     }
 
     @Override
-    public Appointment modifyAppointment() {
+    public boolean finishedAppointment() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Appointment> getAllAppointments() {
+    public Person newPerson(String firstName, String secondName, String role, String address) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Person> getPersonByRole(Role role) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -128,24 +147,7 @@ public class ServiceRestClientImpl implements ServiceFacade {
     }
 
     @Override
-    public boolean finishedAppointment() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public boolean deletePerson(long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public Appointment modifyPerson() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Person> getPersonByRole(Role role) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
 }

@@ -9,13 +9,11 @@ and open the template in the editor.
 
     
     /**
-     * Finish service facade as i go
-     * get the call center appointmenst page working
+     * get rest working
+     * Get time working
      * Flush out Service facade rest
      * Flush out Rest service
-     * get rest stuff working for carer side
-     * * Flush out Service facade rest
-     * * Flush out Rest service
+     * possibly add modify option
      * make pretty
      * 
      * 

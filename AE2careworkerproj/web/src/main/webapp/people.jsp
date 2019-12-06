@@ -53,7 +53,6 @@ if (firstname != null && secondname != null && address != null && actionString !
             
             <p>Address <input type="text" name="Address"> </p>
             <button type="submit" name="action" value="create">New Person</button>
-            <button type="submit" name="action" value="modify">Modify Person</button>
         </form>
         <h2>table</h2>
         <table border="1">
@@ -67,7 +66,7 @@ if (firstname != null && secondname != null && address != null && actionString !
             <% for (Person person : serviceFacade.getAllPersons()){%>
            <tr>
                 <td><%=person.getId()%></td>
-                <td><%=person.getFirstName()%></td>             <!--error somewhere here-->
+                <td><%=person.getFirstName()%></td>             
                 <td><%=person.getSecondName()%></td>
                 <td><%=person.getRole()%></td>
                 <td>
