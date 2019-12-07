@@ -43,12 +43,6 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
   
     @Override
-    public int updateHeartbeat() {
-        //try update time
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public boolean deleteAppointment(long id) {
          if (id == 0) {
             throw new IllegalArgumentException("name cannot be null");

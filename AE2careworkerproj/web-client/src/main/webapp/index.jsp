@@ -1,4 +1,5 @@
 
+<%@page import="org.solent.com504.project.model.dto.Appointment"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -24,10 +25,7 @@ if (name != null && location != null && actionString != "login") {
 //            serviceFacade.arrived(name, location);
     }
     /** TO-DO   
-     * add ability to create users to call center, this will be on a seperate jsp with a list of persons, each will either be a carer or caree, and then a button to add 
      * 
-     * 
-     Arrived changes person location
      * need to get this working on ServiceFacadeInpl, ServiceRestClientImpl and RestService
      
      Get Extend time button to modify appointment
@@ -75,9 +73,10 @@ if (name != null && location != null && actionString != "login") {
                 <th>Extend time </th>
                 <th>Job finished</th>
             </tr>
-            <% // if careworker = careworker input%>
+            <% //for (Appointment appointment : serviceFacade.getAllAppointments()) {
+// if careworker = careworker input%>
            <tr>
-                <td><%%></td>
+                <td><%//=appointment.getId()%></td>
                 <td><%%></td>             
                 <td><%%></td>
                 <td><%%></td>
@@ -103,15 +102,13 @@ if (name != null && location != null && actionString != "login") {
                 </td>
             </tr>
             <%
-                
+            //}  
             %>
         </table>
         <h2>Simple Farm Client Example</h2>
         <!-- http://localhost:8084/projectfacadeweb-client/testClientHeartbeat.jsp -->
         <p> click on <a href="../projectfacadeweb-client/testClientHeartbeat.jsp">testClientHeartbeat.jsp</a> to open client application
         </p>
-
-
 
     </body>
 </html>

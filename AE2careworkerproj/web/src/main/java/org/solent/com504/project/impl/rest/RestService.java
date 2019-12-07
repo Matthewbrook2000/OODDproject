@@ -109,6 +109,30 @@ public class RestService {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(replyMessage).build();
         }
     }
+    @POST
+    @Path("/DeleteAppointment")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response DeleteAppointment(@QueryParam("DeleteAppointment") long id) {
+        try {
+
+            LOG.debug("/DeleteAppointment called appointmentID=" + id);
+            
+            ServiceFacade serviceFacade = WebObjectFactory.getServiceFacade();
+            ReplyMessage replyMessage = new ReplyMessage();
+
+            serviceFacade.deleteAppointment(id);
+
+            replyMessage.setCode(Response.Status.OK.getStatusCode());
+                    
+            return Response.status(Response.Status.OK).entity(replyMessage).build();
+        } catch (Exception ex) {
+            LOG.error("error calling /DeleteAppointment ", ex);
+            ReplyMessage replyMessage = new ReplyMessage();
+            replyMessage.setCode(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+            replyMessage.setDebugMessage("error calling /DeleteAppointment " + ex.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(replyMessage).build();
+        }
+    }
 //    @POST
 //    @Path("/arrived")
 //    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

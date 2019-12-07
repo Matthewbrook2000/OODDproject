@@ -11,6 +11,7 @@ and open the template in the editor.
     /**
      * get rest working
      * Get time working
+     * get update time to work over rest so it updates in the call center aswell
      * Flush out Service facade rest
      * Flush out Rest service
      * possibly add modify option

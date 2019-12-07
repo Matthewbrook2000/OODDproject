@@ -102,20 +102,26 @@ public class ServiceRestClientImpl implements ServiceFacade {
     }
 
     @Override
-    public int updateHeartbeat() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean deleteAppointment(long id) { // doesnt work yet
+        LOG.debug("DeleteAppointment Called");
+
+        Client client = ClientBuilder.newClient(new ClientConfig().register(LoggingFilter.class));
+        WebTarget webTarget = client.target(baseUrl).path("DeleteAppointment");
+
+        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.delete();
+
+        ReplyMessage replyMessage = response.readEntity(ReplyMessage.class);
+        LOG.debug("Response status=" + response.getStatus() + " ReplyMessage: " + replyMessage);
+
+        return true;
     }
 
     @Override
     public Appointment addAppointment(String description, Person personA, Person personB, int hr, int mth, int yr, int durationMinutes) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public boolean deleteAppointment(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public Appointment getAppointment(long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

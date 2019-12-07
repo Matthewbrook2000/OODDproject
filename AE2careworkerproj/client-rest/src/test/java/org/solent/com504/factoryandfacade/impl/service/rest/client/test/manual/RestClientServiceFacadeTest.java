@@ -60,14 +60,21 @@ public class RestClientServiceFacadeTest {
 //        LOG.debug("end of testAddAnimal()");
 //    }
     @Test
-    public void testGetAllAnimals(){
+    public void testGetAllAppointments(){
         LOG.debug("start of testGetAllAppointments()");
         String msg = "returned :";
         List<Appointment> appointments = serviceFacade.getAllAppointments();
         for (Appointment value : appointments) {
             msg = msg + value + ",";
         }
-
+        assertNotNull(appointments);
+        LOG.debug("end of testGetAllAnimals()");
+    }
+    
+    @Test
+    public void testDeleteAppointment(){
+        LOG.debug("start of testGetAllAppointments()");
+        
         LOG.debug("end of testGetAllAnimals()");
     }
 }

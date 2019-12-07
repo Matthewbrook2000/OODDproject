@@ -13,8 +13,6 @@ public interface ServiceFacade {
     
     public String getHeartbeat();
     
-    public int updateHeartbeat();
-    
     public Person newPerson(String firstName, String secondName, String role, String address);
     
     public Appointment addAppointment(String description, Person personA, Person personB, int hr, int mth, int yr, int durationMinutes);
