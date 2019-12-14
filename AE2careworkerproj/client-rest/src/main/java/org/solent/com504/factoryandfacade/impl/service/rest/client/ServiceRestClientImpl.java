@@ -58,29 +58,6 @@ public class ServiceRestClientImpl implements ServiceFacade {
         return replyMessage.getDebugMessage();
 
     }
-//
-//    @Override
-//    public Appointment arrived(String name, String location) {
-//        LOG.debug("arrived called name=" + name + " location=" + location);
-//
-//        Client client = ClientBuilder.newClient(new ClientConfig().register(LoggingFilter.class));
-//        WebTarget webTarget = client.target(baseUrl).path("arrived");
-//
-//        MultivaluedMap<String, String> formData = new MultivaluedHashMap<String, String>();
-//        formData.add("name", name);
-//        formData.add("location", location);
-//
-//        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
-//        Response response = invocationBuilder.post(Entity.form(formData));
-//
-//        ReplyMessage replyMessage = response.readEntity(ReplyMessage.class);
-//        LOG.debug("Response status=" + response.getStatus() + " ReplyMessage: " + replyMessage);
-//    
-//        if (!replyMessage.getAppointmentList().isEmpty()) {
-//            return replyMessage.getAppointmentList().get(0);
-//        }
-//        return null;
-//    }
     
     @Override
     public List<Appointment> getAllAppointments() {
@@ -100,7 +77,26 @@ public class ServiceRestClientImpl implements ServiceFacade {
 
         return appointmentList;
     }
+    
+    @Override
+    public List<Appointment> getAppointmentByCarerId(long id) {
+        LOG.debug("getAppointmentByCarerId Called");
+        List<Appointment> appointmentList = null;
 
+        Client client = ClientBuilder.newClient(new ClientConfig().register(LoggingFilter.class));
+        WebTarget webTarget = client.target(baseUrl).path("getAppointmentByCarerId").queryParam("id", id);
+
+        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        ReplyMessage replyMessage = response.readEntity(ReplyMessage.class);
+        LOG.debug("Response status=" + response.getStatus() + " ReplyMessage: " + replyMessage);
+
+        appointmentList = replyMessage.getAppointmentList();
+
+        return appointmentList;
+    }
+    
     @Override
     public boolean deleteAppointment(long id) { // doesnt work yet
         LOG.debug("DeleteAppointment Called");
@@ -115,6 +111,30 @@ public class ServiceRestClientImpl implements ServiceFacade {
         LOG.debug("Response status=" + response.getStatus() + " ReplyMessage: " + replyMessage);
 
         return true;
+    }
+    
+    @Override
+    public Appointment updateDescription(long id, String description) {
+        LOG.debug("updateDescription Called");
+        Appointment appointment = null;
+
+        Client client = ClientBuilder.newClient(new ClientConfig().register(LoggingFilter.class));
+        WebTarget webTarget = client.target(baseUrl).path("ModifyDescription");
+        
+        String stringId = Long.toString(id);
+        
+        MultivaluedMap<String, String> formData = new MultivaluedHashMap<>();
+        formData.add("id", stringId);
+        formData.add("description", description);
+        
+        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.post(Entity.form(formData));
+
+        ReplyMessage replyMessage = response.readEntity(ReplyMessage.class);
+        LOG.debug("Response status=" + response.getStatus() + " ReplyMessage: " + replyMessage);
+
+
+        return appointment; //returns null for now
     }
 
     @Override
@@ -156,4 +176,5 @@ public class ServiceRestClientImpl implements ServiceFacade {
     public boolean deletePerson(long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

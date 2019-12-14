@@ -1,4 +1,5 @@
 
+<%@page import="org.solent.com504.project.model.dto.Person"%>
 <%@page import="org.solent.com504.project.model.dto.Appointment"%>
 <!DOCTYPE html>
 <!--
@@ -14,34 +15,25 @@ and open the template in the editor.
 
 <%
 response.setIntHeader("Refresh", 20);
+String errorMessage = "";
 String actionString = request.getParameter("action");
-String name = request.getParameter("CarerName");
-String location = request.getParameter("CarerLocation");
-
+String stringid = request.getParameter("CarerId");
+String stringAppId = request.getParameter("personId");
+long personId = 0;
 ServiceFacade serviceFacade = (ServiceFacade) WebClientObjectFactory.getServiceFacade();
 
-if (name != null && location != null && actionString != "login") {
-                
-//            serviceFacade.arrived(name, location);
-    }
+if (stringid != null && actionString != "login") {
+       personId = Long.parseLong(stringid);
+} else if ("arrived".equals(actionString)){
+       long id = Long.parseLong(stringAppId);
+       //serviceFacade.updateDescription(id, "arrived");  DOESN'T WORK
+}
     /** TO-DO   
-     * 
-     * need to get this working on ServiceFacadeInpl, ServiceRestClientImpl and RestService
-     
-     Get Extend time button to modify appointment
-     * done via: ServiceFacade, ServiceFacadeInpl, ServiceRestClientImpl and RestService
-     
-     Get Leaving to delete appointment
-     * done via: ServiceFacade, ServiceFacadeInpl, ServiceRestClientImpl and RestService
-      
-     Implement AppointmentDAO
-     * done via AppointmentDAOJpaImpl
-     
-     Implement PersonDAO
-     * done via PersonDAOJpaImpl 
-      
-     Move on to call center
-     
+      arrived set description to arrived
+      get time working 
+      arrived set description to arrived
+      extend time
+     getTime()
      **/
 %>
 
@@ -54,11 +46,12 @@ if (name != null && location != null && actionString != "login") {
     <body>
          <p>The time is: <%= new Date().toString() %> (note page is auto refreshed every 20 seconds)</p>
         <h1>Example Client JSP Pages</h1>
+        <div style="color:red;"><%=errorMessage%></div>
         
         <p> <a href="../projectfacadeweb">Home page</a>
         <h2>Your details</h2>
         <form method="post">
-            <input type="text" name="CarerName">
+            <input type="number" name="CarerId">
             <button type="submit" name="action" value="login">Log in</button>
         </form>
         <table border="1">
@@ -73,36 +66,47 @@ if (name != null && location != null && actionString != "login") {
                 <th>Extend time </th>
                 <th>Job finished</th>
             </tr>
-            <% //for (Appointment appointment : serviceFacade.getAllAppointments()) {
+            <% for (Appointment appointment : serviceFacade.getAppointmentByCarerId(personId)) {
+                Person personA = appointment.getPersonA();
+                String personAFN = personA.getFirstName();
+                String personASN = personA.getSecondName();
+                String personAName = personAFN + " " + personASN;
+
+                Person personB = appointment.getPersonB();
+                String personBFN = personB.getFirstName();
+                String personBSN = personB.getSecondName();
+                String personBName = personBFN + " " + personBSN;
+                
+                String appDate = appointment.getHr() + " " + appointment.getMth() + " " + appointment.getYr();    
 // if careworker = careworker input%>
            <tr>
-                <td><%//=appointment.getId()%></td>
-                <td><%%></td>             
-                <td><%%></td>
-                <td><%%></td>
-                <td><%%></td>
+                <td><%=appointment.getId()%></td>
+                <td><%=personAName%></td>
+                <td><%=personBName%></td>
+                <td><%=appointment.getDescripton()%></td>
+                <td><%=appDate%></td>
                 <td>
                     <form action="./people.jsp" method="post">
-                        <input type="hidden" name="personId" value="<%%>">
+                        <input type="hidden" name="personId" value="<%=appointment.getId()%>">
                         <button type="submit" name="action" value="arrived">Arrived</button>
                     </form> 
                 </td>
                 <td><%%></td>
                 <td>
                     <form action="./people.jsp" method="post">
-                        <input type="hidden" name="personId" value="<%%>">
+                        <input type="hidden" name="personId" value="<%=appointment.getId()%>">
                         <button type="submit" name="action" value="extend">Extend</button>
                     </form> 
                 </td>
                 <td>
                     <form action="./people.jsp" method="post">
-                        <input type="hidden" name="personId" value="<%%>">
+                        <input type="hidden" name="personId" value="<%=appointment.getId()%>">
                         <button type="submit" name="action" value="delete">Finished</button>
                     </form> 
                 </td>
             </tr>
             <%
-            //}  
+            }  
             %>
         </table>
         <h2>Simple Farm Client Example</h2>

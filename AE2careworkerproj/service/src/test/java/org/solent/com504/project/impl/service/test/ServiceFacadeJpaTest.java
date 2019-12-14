@@ -101,6 +101,25 @@ public class ServiceFacadeJpaTest {
     }
     
     @Test
+    public void testGetAppointmentByCarerId(){
+        System.out.println("start ServiceFacadeTest testGetAppointment()");
+        
+        Person person = serviceFacade.newPerson("john", "doe", "Patient", "123 street");
+        Person personn = serviceFacade.newPerson("ghgh", "ghoe", "Patient", "1ghght");
+        
+        Appointment appointment = serviceFacade.addAppointment("test", person, personn, 1, 1, 1, 30) ;
+        
+        long id = person.getId();
+        System.out.println("id is: " + id);
+        List<Appointment> gotAppointment = serviceFacade.getAppointmentByCarerId(id);
+        
+       // assertNotNull(gotAppointment);
+        System.out.println(gotAppointment);
+        
+        System.out.println("end ServiceFacadeTest testGetAppointment()");
+    }
+    
+    @Test
     public void testDeleteAppointment(){
         System.out.println("start ServiceFacadeTest testDeleteAppointment()");
         assertNotNull(serviceFacade);
@@ -129,7 +148,7 @@ public class ServiceFacadeJpaTest {
     
     @Test
     public void testGetAllPersons(){
-    System.out.println("start ServiceFacadeTest testGetAllAppointment()");
+        System.out.println("start ServiceFacadeTest testGetAllAppointment()");
         assertNotNull(serviceFacade);
         
         testNewPerson();
@@ -138,5 +157,25 @@ public class ServiceFacadeJpaTest {
         assertNotNull(personList);
   
         System.out.println("end ServiceFacadeTest testGetAllAppointment()");
+    }
+    
+    @Test
+    public void testUpdateDescription(){
+        System.out.println("start ServiceFacadeTest testUpdateDescription()");
+        assertNotNull(serviceFacade);
+        
+        Person person = serviceFacade.newPerson("john", "doe", "Patient", "123 street");
+        Person personn = serviceFacade.newPerson("ghgh", "ghoe", "Patient", "1ghght");
+        
+        Appointment appointment = serviceFacade.addAppointment("test", person, personn, 1, 1, 1, 30) ;
+        System.out.println("TESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTvvvvv");
+        long id = appointment.getId();
+        System.out.println("id is: " + id);
+        serviceFacade.updateDescription(id, "This is the test description");
+        Appointment gotAppointment = serviceFacade.getAppointment(id);
+        System.out.println(gotAppointment);
+        assertNotNull(gotAppointment);
+        System.out.println(gotAppointment);
+        System.out.println("end ServiceFacadeTest testUpdateDescription()");
     }
 }

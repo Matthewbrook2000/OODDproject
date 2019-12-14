@@ -162,6 +162,29 @@ public class ServiceFacadeImpl implements ServiceFacade {
         return personList;
     }
 
+    @Override
+    public List<Appointment> getAppointmentByCarerId(long id) {
+        Person personA = personDao.findById(id);
+        List<Appointment> appointmentList = appointmentDao.findByPersonA(personA);
+        
+        return appointmentList;
+    }
+
+    @Override
+    public Appointment updateDescription(long id, String description) {
+        Appointment appointment = getAppointment(id);
+        appointment.setDescripton(description);
+        appointment.setDurationMinutes(appointment.getDurationMinutes());
+        appointment.setHr(appointment.getHr());
+        appointment.setMth(appointment.getMth());
+        appointment.setPersonA(appointment.getPersonA());
+        appointment.setPersonB(appointment.getPersonB());
+        appointment.setYr(appointment.getYr());
+        appointment.setId(id);
+        appointmentDao.save(appointment);
+        return appointment;
+    }
+
     
 
 }

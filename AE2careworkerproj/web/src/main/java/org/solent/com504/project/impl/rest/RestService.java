@@ -85,7 +85,7 @@ public class RestService {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(replyMessage).build();
         }
     }
-    @POST
+    @GET
     @Path("/getAllAppointments")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getAllAppointments() {
@@ -95,7 +95,7 @@ public class RestService {
             LOG.debug("/getAllAppointments called");
 
             List<Appointment> appointments = serviceFacade.getAllAppointments();
-            replyMessage.getAppointmentList();
+            replyMessage.setAppointmentList(appointments);
             
             replyMessage.setCode(Response.Status.OK.getStatusCode());
             
@@ -109,6 +109,59 @@ public class RestService {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(replyMessage).build();
         }
     }
+
+    @GET
+    @Path("/getAppointmentByCarerId")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getAppointmentByCarerId(@QueryParam("id") long id) {
+        try {
+            ServiceFacade serviceFacade = WebObjectFactory.getServiceFacade();
+            ReplyMessage replyMessage = new ReplyMessage();
+            LOG.debug("/getAllAppointments called");
+
+            List<Appointment> appointments = serviceFacade.getAppointmentByCarerId(id);
+            replyMessage.setAppointmentList(appointments);
+            
+            replyMessage.setCode(Response.Status.OK.getStatusCode());
+            
+            return Response.status(Response.Status.OK).entity(replyMessage).build();
+            
+        } catch (Exception ex) {
+            LOG.error("error calling /getAppointmentsByCarerId", ex);
+            ReplyMessage replyMessage = new ReplyMessage();
+            replyMessage.setCode(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+            replyMessage.setDebugMessage("error calling /getAppointmentByCarerId " + ex.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(replyMessage).build();
+        }
+    }
+    
+    @POST
+    @Path("/ModifyDescription")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response ModifyDescription(@QueryParam("id") String stringId, @QueryParam("description") String description){
+         try {
+            ServiceFacade serviceFacade = WebObjectFactory.getServiceFacade();
+            ReplyMessage replyMessage = new ReplyMessage();
+            LOG.debug("/ModifyDescription called");
+            
+            long id = Long.parseLong(stringId);
+            
+            Appointment appointment = serviceFacade.updateDescription(id, description);
+            replyMessage.getAppointmentList().add(appointment);                             //possible error
+            
+            replyMessage.setCode(Response.Status.OK.getStatusCode());
+            
+            return Response.status(Response.Status.OK).entity(replyMessage).build();
+            
+        } catch (Exception ex) {
+            LOG.error("error calling /getAppointmentsByCarerId", ex);
+            ReplyMessage replyMessage = new ReplyMessage();
+            replyMessage.setCode(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+            replyMessage.setDebugMessage("error calling /getAppointmentByCarerId " + ex.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(replyMessage).build();
+        }
+    }
+    
     @POST
     @Path("/DeleteAppointment")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

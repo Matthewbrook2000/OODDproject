@@ -47,18 +47,7 @@ public class RestClientServiceFacadeTest {
 
         LOG.debug("end of testGetHeartbeat()");
     }
-//    
-//    @Test 
-//    public void testArrived(){
-//        LOG.debug("testArrived()");
-//        String name = "name";
-//        String location = "location";
-//        Appointment appointment = serviceFacade.arrived(name, location);
-//        assertNotNull(appointment);
-//        String msg = "returned :" + appointment;
-//        LOG.debug(msg);
-//        LOG.debug("end of testAddAnimal()");
-//    }
+
     @Test
     public void testGetAllAppointments(){
         LOG.debug("start of testGetAllAppointments()");
@@ -74,6 +63,22 @@ public class RestClientServiceFacadeTest {
     @Test
     public void testDeleteAppointment(){
         LOG.debug("start of testGetAllAppointments()");
+        
+        LOG.debug("end of testGetAllAnimals()");
+    }
+    
+    @Test
+    public void testModifyAppointment(){
+        LOG.debug("start of testGetAllAppointments()");
+        
+        String msg = "returned :";
+        List<Appointment> appointments = serviceFacade.getAllAppointments();
+        for (Appointment value : appointments) {
+            long id = value.getId();
+            serviceFacade.updateDescription(id, "UPDATED DESCRITION");
+            msg = msg + value + ",";
+        }
+        assertNotNull(appointments);
         
         LOG.debug("end of testGetAllAnimals()");
     }

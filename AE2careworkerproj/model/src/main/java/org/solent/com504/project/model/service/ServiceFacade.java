@@ -27,12 +27,14 @@ public interface ServiceFacade {
     
     public List<Appointment> getAllAppointments();
     
+    public List<Appointment> getAppointmentByCarerId(long id);
+    
     public List<Person> getAllPersons();
     
     public boolean finishedAppointment(); 
     
     public boolean deletePerson(long id);
     
-    
+    public Appointment updateDescription(long id, String description);
 }
 
